@@ -2,52 +2,95 @@
 
 <<comment
 
+mkdir sh01_intra_repository
+mkdir sh01_testing_environment_directory
+
 mkdir sh01_intra_repository/ex01
-echo -e "#!/bin/bash\n\nid -G -n $FT_USER | \"sed/ /,/g\" | tr -d \"\\\n\"" > sh01_intra_repository/ex01/print_groups.sh
-cat -e sh01_intra_repository/ex01/print_groups.sh
+cp sh01_testing_environment_directory/ex01/print_groups.sh sh01_intra_repository/ex01/
+echo -e "cd sh01_testing_environment_directory/ex01
+FT_USER=ubuntu
+bash print_groups.sh"
 
 mkdir sh01_intra_repository/ex02
-echo -e "#!/bin/bash\n\nfind . -name \"*.sh\" -exec basename {} .sh \\;" > sh01_intra_repository/ex02/find_sh.sh
-echo sh01_intra_repository/ex02/find_sh.sh
-
-mkdir sh01_intra_repository/sh01_ex02_testing_environment_folder
-touch sh01_intra_repository/sh01_ex02_testing_environment_folder/test1.sh
-mkdir sh01_intra_repository/sh01_ex02_testing_environment_folder/test2
-touch sh01_intra_repository/sh01_ex02_testing_environment_folder/test2/test3.sh
-find  sh01_intra_repository/sh01_ex02_testing_environment_folder -name "*.sh" -exec basename {} .sh \;
+cp sh01_testing_environment_directory/ex02/find_sh.sh sh01_intra_repository/ex02/
+mkdir sh01_testing_environment_directory/ex02/testing_directory
+cp sh01_testing_environment_directory/ex02/find_sh.sh\
+ sh01_testing_environment_directory/ex02/testing_directory/find_sh.sh
+touch sh01_testing_environment_directory/ex02/testing_directory/file1.sh
+touch sh01_testing_environment_directory/ex02/testing_directory/file2.sh
+mkdir sh01_testing_environment_directory/ex02/testing_directory/subdir1
+touch sh01_testing_environment_directory/ex02/testing_directory/subdir1/file3.sh
+mkdir sh01_testing_environment_directory/ex02/testing_directory/subdir1/subsubdir1/file4.sh
+echo "cd sh01_testing_environment_directory/ex02/testing_directory
+bash find_sh.sh"
 
 mkdir sh01_intra_repository/ex03
-echo -e "#!/bin/bash\n\nfind . -type f -o -type d | wc -l | bc" > sh01_intra_repository/ex03/find_sh.sh
-
-cp -r sh01_intra_repository/sh01_ex02_testing_environment_folder sh01_intra_repository/sh01_ex03_testing_environment_folder
-
-find sh01_intra_repository/sh01_ex03_testing_environment_folder/ -type f -o -type d
-find sh01_intra_repository/sh01_ex03_testing_environment_folder/ -type f -o -type d | wc -l | bc
+cp sh01_testing_environment_directory/ex03/find_sh.sh sh01_intra_repository/ex03/
+mkdir sh01_testing_environment_directory/ex03/testing_directory
+touch sh01_testing_environment_directory/ex03/testing_directory/file1.txt
+touch sh01_testing_environment_directory/ex03/testing_directory/file2.txt
+mkdir sh01_testing_environment_directory/ex03/testing_directory/subdir1
+touch sh01_testing_environment_directory/ex03/testing_directory/subdir1/file3.txt
+touch sh01_testing_environment_directory/ex03/testing_directory/subdir1/file4.txt
+mkdir sh01_testing_environment_directory/ex03/testing_directory/subdir2
+touch sh01_testing_environment_directory/ex03/testing_directory/subdir2/file5.txt
+touch sh01_testing_environment_directory/ex03/testing_directory/subdir2/file6.txt
+mkdir sh01_testing_environment_directory/ex03/testing_directory/subdir2/subsubdir1
+touch sh01_testing_environment_directory/ex03/testing_directory/subdir2/subsubdir1/file7.txt
+touch sh01_testing_environment_directory/ex03/testing_directory/subdir2/subsubdir1/file8.txt
+cp sh01_testing_environment_directory/ex03/find_sh.sh\
+ sh01_testing_environment_directory/ex03/testing_directory/find_sh.sh
+echo "cd sh01_testing_environment_directory/ex03/testing_directory
+ bash find_sh.sh"
 
 mkdir sh01_intra_repository/ex04
-echo -e "#!/bin/bash\n\nifconfig | grep ether | cut -c 15-31 | rev" > sh01_intra_repository/ex04/MAC.sh
+cp sh01_testing_environment_directory/ex04/MAC.sh sh01_intra_repository/ex04/
+echo "cd sh01_testing_environment_directory/ex04
+bash MAC.sh"
 
 mkdir sh01_intra_repository/ex05
-echo "42" > "sh01_intra_repository/ex05/\"\\?\$*'MaRViN'*\$?\\\""
+echo "42" > "sh01_testing_environment_directory/ex05/\"\\?\$*'MaRViN'*\$?\\\""
+chmod 614 "sh01_testing_environment_directory/ex05/\"\\?\$*'MaRViN'*\$?\\\""
+touch -m -t 202310021221.00 "sh01_testing_environment_directory/ex05/\"\\?\$*'MaRViN'*\$?\\\""
+cp "sh01_testing_environment_directory/ex05/\"\\?\$*'MaRViN'*\$?\\\""\
+ "sh01_intra_repository/ex05/\"\\?\$*'MaRViN'*\$?\\\""
+touch -m -t 202310021221.00 "sh01_intra_repository/ex05/\"\\?\$*'MaRViN'*\$?\\\""
 
 mkdir sh01_intra_repository/ex06
-echo -e "#!/bin/bash\n\nls -l | awk \"NR%2==1\"" > sh01_intra_repository/ex06/skip.sh
+cp sh01_testing_environment_directory/ex06/skip.sh sh01_intra_repository/ex06/
+mkdir sh01_testing_environment_directory/ex06/testing_directory
+touch sh01_testing_environment_directory/ex06/testing_directory/file1.txt
+touch sh01_testing_environment_directory/ex06/testing_directory/file2.txt
+touch sh01_testing_environment_directory/ex06/testing_directory/file3.txt
+mkdir sh01_testing_environment_directory/ex06/testing_directory/subdir1
+mkdir sh01_testing_environment_directory/ex06/testing_directory/subdir2
+cp sh01_testing_environment_directory/ex06/skip.sh\
+ sh01_testing_environment_directory/ex06/testing_directory/skip.sh
 
 mkdir sh01_intra_repository/ex07
-rm sh01_intra_repository/ex07/r_dwssap.sh
-echo -e "#!/bin/bash\n\ncat /etc/passwd | grep --invert-match \"^#\" | sed -n \"p;n\" | cut -d : -f 1 | rev | sort -r | awk \"NR>=\$FT_LINE1 && NR<=\$FT_LINE2\" | tr \"\\\n\" | sed 's/,/, /g' | sed 's/, $/./'" > sh01_intra_repository/ex07/r_dwssap.sh
-
-mkdir sh01_intra_repository/sh01_ex07_testing_environment_folder
-echo -e "1\n2\n4\n8\n16" > sh01_intra_repository/sh01_ex07_testing_environment_folder/passwd.txt
+cp sh01_testing_environment_directory/ex07/r_dwssap.sh sh01_intra_repository/ex07/
+echo -e "cd sh01_testing_environment_directory/ex07
+clear && export FT_LINE1=?? && export FT_LINE2=?? && bash r_dwssap.sh"
 
 mkdir sh01_intra_repository/ex08
-echo -e "#!/bin/bash\n\necho \$FT_NBR1 + \$FT_BNR2 | sed 's/\\\\\\/1/g' | sed 's/?/3/g' | sed 's/!/4/g' | sed \"s/\\'/0/g\" | sed \"s/\\\"/2/g\" | tr \"mrdoc\" \"01234\" | xargs echo \"ibase=5; obase=13;\" | bc | tr \"0123456789ABC\" \"gtaio luSnemf\"" > sh01_intra_repository/ex08/add_chelou.sh
+cp sh01_testing_environment_directory/ex08/add_chelou.sh sh01_intra_repository/ex08/
+
+XXXX
+
 echo sh01_intra_repository/ex08/add_chelou.sh
 
-ls -fl sh01_intra_repository/
-ls -dl sh01_intra_repository/ex*
+ls -l
+  sh01_intra_repository
+  sh01_testing_environment_directory
+
+echo "==================== ls -l sh01_intra_repository/ex08"
+ls -l sh01_intra_repository/ex08
 
 comment
 
 clear
+echo "cd sh01_testing_environment_directory/ex08
+export FT_NBR1=\"\\\\'?\\\"\\\\\\\"'\\\\\" && FT_NBR2=rcrdmddd && bash add_chelou.sh
+export FT_NBR1='\\\"\\\"!\\\"\\\"!\\\"\\\"!\\\"\\\"!\\\"\\\"!\\\"\\\"' && FT_NBR2=dcrcmcmooododmrrrmorcmcrmomo && bash add_chelou.sh
+"
 
