@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wextra -Werror
 
 fnl: main.o ft_print_memory.o
 	@echo "Linking and producing the final application"
