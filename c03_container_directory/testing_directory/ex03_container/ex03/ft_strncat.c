@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pngaotha <papad21297@hotmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 00:45:52 by pngaotha          #+#    #+#             */
-/*   Updated: 2024/04/08 00:46:01 by pngaotha         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:14:44 by pngaotha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(char *s1, char *s2)
+char	*ft_strncat(char *dest, char *src, unsigned int nb)
 {
-	while (*s1 == *s2 && *s1)
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (dest[i] != '\0')
 	{
-		++s1;
-		++s2;
+		i++;
 	}
-	return (*s1 - *s2);
+	j = 0;
+	while (src[j] != '\0' && j < nb)
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
